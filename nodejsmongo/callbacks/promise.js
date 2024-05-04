@@ -25,13 +25,15 @@ verificarLongitudDocumento(`1234567891`)
 
 // Un chat entre alumno y instructor va haber una pregunta para que evalue si la pregunta es falso o verdadero
 
+
+//metodos para crear un input para los usuarios
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
 const input = (query) => new Promise(resolve => readline.question(query, resolve));
-
+//crea una variable de node_notifier de esta misma dependencia (node-notifier)
 const notifier = require('node-notifier');
 
 function respuestaAlumno(respuesta) {
@@ -45,7 +47,7 @@ function respuestaAlumno(respuesta) {
         }, 2000);
     });
 }
-
+//funcion para darle un delay a los mensajes
 function mostrarMensaje(mensaje) {
     return new Promise((resolve) => {
         setTimeout(function () {
@@ -55,12 +57,16 @@ function mostrarMensaje(mensaje) {
     });
 }
 
+//muestra los mensajes
 async function conversacion() {
     await mostrarMensaje("Profesor: hola estudiante.");
     await mostrarMensaje("Estudiante: hola Profesor.");
     await mostrarMensaje("Profesor: ¿Cuánto es 2 + 2?");
     let respuesta = await input('Estudiante: ');
 
+    // Llamar a la función respuestaAlumno
+    // segun la respuesta muestra un mensaje o otro 
+    //usando la librerya de node-notifier
     try {
         const resultado = await respuestaAlumno(respuesta);
         // Mostrar alerta utilizando node-notifier
@@ -78,10 +84,10 @@ async function conversacion() {
             sound: true
         });
     }
-
+    //termina la funcion readline para poder cerrar el programa
     readline.close();
 }
-
+//ejecutamos la funcion principal
 conversacion();
 
 
